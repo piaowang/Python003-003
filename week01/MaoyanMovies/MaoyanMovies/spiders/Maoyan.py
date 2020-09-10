@@ -4,8 +4,8 @@ import scrapy
 import sys
 
 from scrapy import Selector
+#sys.path.append(r"C:/Users\chenming/Python003-003/week01/MaoyanMovies/MaoyanMovies")
 
-sys.path.append(r"C:/Users\chenming/Python003-003/week01/MaoyanMovies/MaoyanMovies")
 from time import sleep
 from bs4 import BeautifulSoup
 from items import MaoyanmoviesItem
@@ -101,6 +101,8 @@ with open('next_info.html', encoding='utf-8') as f:
     # xx = (next_text, 'html.parser')
 
 
+# pagedata = Selector(next_text)
+
 class MaoyanSpider(scrapy.Spider):
     name = 'Maoyan'
     allowed_domains = ['maoyan.com']
@@ -162,7 +164,7 @@ class MaoyanSpider(scrapy.Spider):
         # print(response)
         movie_type = []
         item = MaoyanmoviesItem()
-        #pagedata = Selector(text=next_text)
+        #pagedata = Selector(text=xx.html)
         # print(pagedata)
         movie_name = Selector(response=response).xpath('//div[1]/h1/text()').extract()[0]
         print(movie_name)
