@@ -1,0 +1,88 @@
+数据表的读写
+$ python manage.py  shell
+>>> from index.models import *
+>>> n = Name()
+>>> n.name='红楼梦'
+>>> n.author='曹雪芹'
+>>> n.stars=9.6
+>>> n.save()
+
+使用ORM框架api实现
+增
+>>> from index.models import *
+>>> Name.objects.create(name='红楼梦', author='曹雪芹', stars='9.6')
+>>> Name.objects.create(name='活着', author='余华', stars='9.4')
+
+
+查
+>>> Name.objects.get(id=2).name
+
+改
+>>> Name.objects.filter(name='红楼梦').update(name='石头记')
+
+删 
+单条数据n
+>>> Name.objects.filter(name='红楼梦').delete()
+全部数据
+>>> Name.objects.all().delete()
+
+其他常用查询
+>>> Name.objects.create(name='红楼梦', author='曹雪芹', stars='9.6')
+>>> Name.objects.create(name='活着', author='余华', stars='9.4')
+>>> Name.objects.all()[0].name
+>>> n = Name.objects.all()
+>>> n[0].name
+>>> n[1].name
+
+>>> Name.objects.values_list('name')
+<QuerySet [('红楼梦',), ('活着',)]>
+>>> Name.objects.values_list('name')[0]
+('红楼梦’,)
+filter支持更多查询条件
+filter(name=xxx, id=yyy)
+
+可以引入python的函数
+>>> Name.objects.values_list('name').count()
+2
+
+(venv) C:\Users\chenming\Python003-003\week06\MyDjango>python manage.py shell
+Python 3.7.4 (default, Aug  9 2019, 18:34:13) [MSC v.1915 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from index.models import *
+>>> dir()
+['Name', 'Type', '__builtins__', 'comment', 'models']
+>>> n = comment()
+>>> type(n
+... )
+<class 'index.models.comment'>
+>>> n.comment_text ='杀手'
+>>> n.stars =5
+>>> n.time_log ='20200701'
+>>> n
+<comment: comment object (None)>
+>>> n.save
+<bound method Model.save of <comment: comment object (None)>>
+>>> n.save()
+>>> from index.models import *
+
+>>> comment.objects.create(comment_text='好看！全程无尿点。熊孩子坑爹的故事，这部电影告诉我们——子女教育太重要
+了，至少要知道什么人不能惹。拍得很二次元，基努里维斯大叔帅到没边，拳拳到肉的感觉看着很过瘾', stars='曹雪芹', tim
+e_log='2014-10-31')
+<comment: comment object (2)>
+>>> comment.objects.create(comment_text='惊喜。足够简单粗暴：在这个片子里台词多的人物都被杀了；男主逻辑是「你杀
+我狗，偷我车，我灭你全家」；报仇时都不等仇家一句话说完就结果了对方，没一句逼逼。另外基努瘦了穿西装真好看。', sta
+rs='4', time_log='2014-10-25')
+<comment: comment object (3)>
+>>> n.Name.objects.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'comment' object has no attribute 'Name'
+>>> n= comment.objects.all()
+>>> n[0].name
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'comment' object has no attribute 'name'
+>>> n[0].comment_text
+'杀手'
+>>>

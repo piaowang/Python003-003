@@ -1,7 +1,10 @@
 import pandas as pd
 import pymysql
 
-a = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='123589', db='test_py', use_unicode=True,
+a = pymysql.connect(host='127.0.0.1',
+                    port=3306, user='root'
+                    , passwd='123589',
+                    db='test_py', use_unicode=True,
                     charset="utf8mb4")
 
 sql = 'select * from train'
