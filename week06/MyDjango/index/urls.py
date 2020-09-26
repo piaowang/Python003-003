@@ -7,5 +7,6 @@ urlpatterns = [
     ### 增加一个输出电影评论的路径
     path('comment', views.movie_comment),
 
+    ### 增加一个查询路径输出电影评论的路径
     path('search/', views.search),
 ]
