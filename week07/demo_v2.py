@@ -12,52 +12,57 @@
 动物园类要求有“名字”属性和“添加动物”的方法，“添加动物”方法要实现同一只动物（同一个动物实例）不能被重复添加的功能。
 
 '''
-a = set()  #类型空值
-b = set()  #动物添加
+from abc import  abstractmethod
+
+
 class  Zoo():
 
     def __init__(self,name):
 
         self.name =name
-        a = set()
         #print(self.name)
-    @classmethod
-    def add_animal(cls,name):
-        name1 = type(name).__name__
-        name2 = name.name
-        print(name2)
-        if name2 in b:
-            print('此猫已经在动物园了，不用重复添加')
+        self.__animal_list = []
+        self.__animal_type = []
+    def add_animal(self, animal):
+        self.__animal_type.append(animal.__class__.__name__)
+        #setattr(self, animal.__class__.__name__, None)
+        if animal.name not in self.__animal_list:
+            self.__animal_list.append(animal.name)
+            print(f'{animal.name}  添加成功.')
         else:
-            b.add(name2)
-            print(f'此动物'+name2+'已添加到动物园')
-        print(name1)
-        a.add(name1)
+            raise Exception(f'{animal.name} 已经添加过了.')
+
     def __getattr__(self, item):
         #print(a)
-        if item in a:
+        if item in self.__animal_type:
           print('动物园有这种动物')
         else:
             print('动物园没有这种动物')
+
+
+
 class Animal():
-    def __init__(self,ctype,body,nature,is_ferocity):
+    @abstractmethod
+    def __init__(self,name,ctype,body,nature):
+        self.name = name  # 名称
         self.ctype = ctype   #类型
         self.body = body     #体型
         self.nature = nature #性格
-        self.is_ferocity =is_ferocity #是否凶猛
+        self.is_ferocity =bool(
+            self.ctype == '食肉' and
+            self.body >= '中等' and
+            self.nature == '凶猛'
+        ) #是否凶猛
 
-class Cat(Zoo):
-    def __init__(self,name , ctype,  body,nature):
-        #super().__init__(name)
-        self.name = name #性格
-        self.ctype = ctype #类型
-        self.body = body    #体型
-        self.is_ferocity = nature # 性格
-    #print('It ia a cat')
+class Cat(Animal):
+    def __init__(self, name, catagory, body, nature):
+        super().__init__(name, catagory, body, nature)
 
-class D(Zoo):
+
+class Dog(Animal):
     #print('It ia a dog')
-    pass
+    def __init__(self, name, catagory, body, nature):
+        super().__init__(name, catagory, body, nature)
 
 
 
@@ -68,12 +73,13 @@ if __name__ == '__main__':
     # 实例化一只猫，属性包括名字、类型、体型、性格
     cat1 = Cat('大花猫 1', '食肉', '小', '温顺')
     cat2 = Cat('大花猫 2', '食肉', '小', '温顺')
-
-    print(cat1.is_ferocity)
+    cat3 = Dog('大狗 2', '食肉', '小', '温顺')
     # 增加一只猫到动物园
     z.add_animal(cat1)
     z.add_animal(cat2)
-    z.add_animal(cat2)
+    #z.add_animal(cat2)
+    print(cat1.is_ferocity)
 
     # 动物园是否有猫这种动物
     have_cat = hasattr(z, 'Cat')
+    have_cat = hasattr(z, 'Cat1')
