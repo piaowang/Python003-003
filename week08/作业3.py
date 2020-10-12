@@ -20,11 +20,10 @@ def run_for(*args, **kwargs):
     for i in range(10000000):
         a = i + 1
         # print(a)
-    print(args)
+    for i in args:
+        print(args)
     print(kwargs)
     for pet, name in kwargs.items():
-        print(pet)
         print(f"{pet}:{name}")
 
-
-a = run_for('xzxz', 'name', "chen", {'a': 7, 'b': 3, 'd': 90})
+a = run_for('xzxz','vs', a= 7, b=3, d= 90)
