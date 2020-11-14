@@ -48,7 +48,7 @@ def login(request):
             if user:
                 # 登陆用户
                 #login(request, user)
-                return render(request, 'result.html', locals())
+                return render(request, 'result2.html', locals())
                 #HttpResponse('登录成功')
             else:
                 return HttpResponse('登录失败')
