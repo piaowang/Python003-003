@@ -34,7 +34,7 @@ def search(request):
     n = comment.objects.filter(comment_text__icontains=q)
     return render(request, 'index.html',locals())
 
-@csrf_exempt
+
 def login(request):
     if request.method == 'POST':
         login_form = LoginForm(request.POST)

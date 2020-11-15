@@ -28,8 +28,8 @@ df = df[df['commnet_text'].notnull()]
 df = df[ ['rank','title', 'commnet_text'] ]
 
 
-df.dropna()
-df.drop_duplicates()
+df = df.dropna()
+df = df.drop_duplicates()
 #print(df)
 
 def _sentiment(text):
@@ -57,6 +57,6 @@ df = df[order]
 # print('Read from and write to Mysql table successfully!')
 
 with engine.connect() as conn:
-    #rst = conn.execute('DELETE FROM phone_sentiment ')
+    rst = conn.execute('DELETE FROM phone_sentiment ')
     pd.io.sql.to_sql(df, "phone_sentiment", con=conn, schema="test_py",if_exists='append',index =True)
     print('Read from and write to Mysql table successfully!')

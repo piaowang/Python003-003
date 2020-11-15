@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import re
 from time import sleep
+import time
+import os
 
 import scrapy
 from scrapy import Selector
@@ -117,3 +119,8 @@ class ZdmSpider(scrapy.Spider):
 
         # movie_type = []
 
+if __name__ = '__main__':
+
+    while True:
+        os.system("scrapy crawl News")
+        time.sleep(86400)  # 每隔一天运行一次 24*60*60=86400s
